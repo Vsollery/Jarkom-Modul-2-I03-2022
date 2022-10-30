@@ -79,22 +79,22 @@ gateway 10.15.2.1
 
 After that he also wants to create a subdomain eden.wise.yyy.com with alias www.eden.wise.yyy.com whose DNS is set on WISE and leads to Eden.
 
-![Number2](/ss/3.jpg.)
+![Number2](/ss/3.jpg)
 
 nano resolve.conf
 
-![nanoResolve.conf](/ss/4.jpg.)
+![nanoResolve.conf](/ss/4.jpg)
 
 nano named.conf.local
 
-![nano named.conf.local](/ss/5.jpg.)
+![nano named.conf.local](/ss/5.jpg)
 
 make folder and copy from local to jarkom directory
 
-![make folder](/ss/6.jpg.)
+![make folder](/ss/6.jpg)
 
 nano wise.I03.com
 
-![wise.io3.com](/ss/7.jpg.)
+![wise.io3.com](/ss/7.jpg)
 
 
