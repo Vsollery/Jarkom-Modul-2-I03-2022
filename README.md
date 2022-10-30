@@ -77,7 +77,37 @@ gateway 10.15.2.1
 
 ## Question 2
 
-After that he also wants to create a subdomain eden.wise.yyy.com with alias www.eden.wise.yyy.com whose DNS is set on WISE and leads to Eden.
+To make it easier to get information about the mission from Handler, help Loid create the main website by accessing wise.yyy.com with alias www.wise.yyy.com on the wise folder.
+```
+apt-get install bind9 -y
+
+echo'zone "wise.I03.com" {
+        type master;
+        file "/etc/bind/Jarkom/wise.I03.com";
+};' > /etc/bind/named.conf.local
+
+mkdir /etc/bind/Jarkom
+
+cp /etc/bind/db.local /etc/bind/Jarkom/wise.I03.com
+
+echo';
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     wise.I03.com. root.wise.I03.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      wise.I03.com.
+@       IN      A       192.208.2.2
+@       IN      AAAA    ::1 
+www      IN      CNAME   wise.I03.com.' > /etc/bind/Jarkom/wise.I03.com
+
+service bind9 restart
+```
 
 ![Number2](/ss/3.jpg)
 
@@ -96,5 +126,83 @@ make folder and copy from local to jarkom directory
 nano wise.I03.com
 
 ![wise.io3.com](/ss/7.jpg)
+
+##Question 3
+
+ After that he also wants to create a subdomain eden.wise.yyy.com with alias www.eden.wise.yyy.com whose DNS is set on WISE and leads to Eden.
+ 
+ ```
+ echo';
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     wise.I03.com. root.wise.I03.com. (
+                              2         ; Serial
+                        604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      wise.I03.com.
+@       IN      A       192.208.2.2
+@       IN      AAAA    ::1 
+www      IN      CNAME   wise.I03.com.
+eden     IN      A       192.208.3.3
+www.eden IN      A      192.208.3.3' > /etc/bind/Jarkom/wise.I03.com
+
+service bind9 restart
+```
+
+##Question 4
+
+Also create a reverse domain for the main domain
+
+```
+echo'zone "2.208.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/Jarkom/2.208.192.in-addr.arpa";
+};'> nano /etc/bind/named.conf.local
+cp /etc/bind/db.local /etc/bind/Jarkom/2.208.192.in-addr.arpa
+
+echo';
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     wise.I03.com. root.wise.I03.com. (
+                              2         ; Serial
+                         604800         ; Refresh
+				    86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+2.208.192.in-addr.arpa. IN      NS      wise.I03.com.
+2       IN      PTR     wise.I03.com.'> /etc/bind/Jarkom/2.208.192.in-addr.arpa
+
+service bind9 restart
+```
+
+##Question 5
+
+```
+echo'zone "wise.I03.com" {
+type master;
+notify yes;
+also-notify { 192.208.3.2; }; 
+allow-transfer { 192.208.3.2; }; 
+        file "/etc/bind/Jarkom/wise.I03.com";
+}; 
+zone "2.208.192.in-addr.arpa" {
+    type master;
+	notify yes;
+	also-notify { 192.208.3.2; }; 
+	allow-transfer { 192.208.3.2; }; 
+        file "/etc/bind/Jarkom/wise.I03.com";
+}; 
+zone "2.208.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/Jarkom/2.208.192.in-addr.arpa";
+};'> nano /etc/bind/named.conf.local
+```
+
 
 
