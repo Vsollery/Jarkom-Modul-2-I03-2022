@@ -10,4 +10,4 @@ Computational Networking Module 2 Practicum Report
 
 topology with WISE as DNS Master, Berlint as DNS Slave, Eden will as Web Server, and SSS & Garden as Client!
 
-![Number1](/screenshots/messageImage_1667115147678.jpeg)
+![Number1](/ss/topology.jpg)
