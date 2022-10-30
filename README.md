@@ -72,6 +72,6 @@ iface eth0 inet static
 address 10.15.2.2
 netmask 255.255.255.0
 gateway 10.15.2.1
-``c
+```
 
 
