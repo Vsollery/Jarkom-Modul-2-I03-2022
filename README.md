@@ -183,6 +183,8 @@ service bind9 restart
 
 ##Question 5
 
+To stay in touch if the WISE server has some problem, make Berlint also as the DNS Slave for the main domain 
+
 ```
 echo'zone "wise.I03.com" {
 type master;
